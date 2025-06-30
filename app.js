@@ -1085,3 +1085,5 @@ window.formatAddress = formatAddress;
 window.displayFollowedTraders = displayFollowedTraders;
 window.isTraderFollowed = isTraderFollowed;
 window.apiKey = "cqt_rQCtDTV93Qvwpwdj6XX3xMCfq9QM";
+window.isTraderFollowed = isTraderFollowed;
+window.apiKey = "cqt_rQCtDTV93Qvwpwdj6XX3xMCfq9QM";
