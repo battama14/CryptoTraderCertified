@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CTC – Crypto Trader Certifié</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    #loginModal.hidden { display: none !important; }
+    #loginModal:not(.hidden) { display: flex !important; }
+    .auth-tab.active { background-color: #EAB308 !important; color: #111827 !important; }
+    @media (max-width: 768px) {
+      .max-w-6xl { max-width: 100%; padding: 0 1rem; }
+      .grid { grid-template-columns: 1fr !important; gap: 1rem; }
+      .lg\\:grid-cols-2 { grid-template-columns: 1fr !important; }
+      .md\\:grid-cols-2 { grid-template-columns: 1fr !important; }
+      .md\\:grid-cols-3 { grid-template-columns: 1fr !important; }
+      .text-4xl { font-size: 1.875rem !important; }
+      .md\\:text-5xl { font-size: 2.25rem !important; }
+      .hidden.md\\:flex { display: none !important; }
+      .md\\:hidden { display: block !important; }
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-gray-200">
+
+  <!-- HEADER -->
+  <header class="fixed w-full bg-gray-800/80 backdrop-blur-sm z-50">
+    <div class="max-w-6xl mx-auto flex items-center justify-between py-4 px-6">
+      <a href="#" class="flex items-center gap-2">
+        <img src="logo.png" alt="CTC" class="h-16 w-16"/>
+        <span class="text-xl font-extrabold text-yellow-400">CTC</span>
+      </a>
+      <nav class="hidden md:flex gap-6 text-gray-300">
+        <a href="#features" class="hover:text-yellow-400 transition">Fonctionnalités</a>
+        <a href="#premium" class="hover:text-yellow-400 transition">Premium</a>
+        <a href="#token" class="hover:text-yellow-400 transition">Token</a>
+        <a href="#search" class="hover:text-yellow-400 transition">Recherche</a>
+      </nav>
+      <button id="loginBtn" class="hidden md:inline-flex items-center gap-2 px-4 py-2 bg-yellow-400 text-gray-900 font-semibold rounded-lg hover:shadow-lg transition">
+        <i class="fas fa-user-lock"></i> Connexion
+      </button>
+      <button id="mobileMenuBtn" class="md:hidden text-gray-400 focus:outline-none">
+        <i class="fas fa-bars text-2xl"></i>
+      </button>
+    </div>
+    <div id="mobileMenu" class="hidden md:hidden bg-gray-800 px-6 py-4">
+      <nav class="flex flex-col gap-4 text-gray-300">
+        <a href="#features" class="hover:text-yellow-400 transition">Fonctionnalités</a>
+        <a href="#premium" class="hover:text-yellow-400 transition">Premium</a>
+        <a href="#token" class="hover:text-yellow-400 transition">Token</a>
+        <a href="#search" class="hover:text-yellow-400 transition">Recherche</a>
+        <button id="mobileLoginBtn" class="text-left px-4 py-2 bg-yellow-400 text-gray-900 font-semibold rounded-lg">
+          <i class="fas fa-user-lock"></i> Connexion
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="hero" class="pt-24 pb-16">
+    <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-8 items-center px-6">
+      <div class="space-y-6">
+        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">
+          Analysez. Suivez. 
+          <span class="relative inline-block text-yellow-400 after:absolute after:content-[''] after:bottom-0 after:left-0 after:w-full after:h-2 after:bg-yellow-400/30">
+            Gagnez en confiance.
+          </span>
+        </h1>
+        <p class="text-gray-300">
+          Plateforme ultime pour évaluer la <span class="text-cyan-400 font-semibold">fiabilité des traders</span> crypto, multi-chaines et temps réel.
+        </p>
+        <a href="#search" class="inline-flex items-center gap-2 bg-cyan-400 text-gray-900 font-semibold px-5 py-3 rounded-full hover:bg-cyan-500 transition">
+          Commencer maintenant <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="py-16 bg-gray-800">
+    <div class="max-w-6xl mx-auto text-center px-6">
+      <h2 class="text-3xl font-bold text-yellow-400 mb-10"><i class="fas fa-star"></i> Fonctionnalités clés</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-gray-700 p-6 rounded-2xl hover:scale-105 transition shadow-md">
+          <div class="text-yellow-400 text-3xl mb-4"><i class="fas fa-project-diagram"></i></div>
+          <h3 class="font-semibold text-xl mb-2">Analyse multi-chaînes</h3>
+          <p>Ethereum, BNB, Polygon, Solana… tout en un.</p>
+        </div>
+        <div class="bg-gray-700 p-6 rounded-2xl hover:scale-105 transition shadow-md">
+          <div class="text-cyan-400 text-3xl mb-4"><i class="fas fa-shield-alt"></i></div>
+          <h3 class="font-semibold text-xl mb-2">Badges de confiance</h3>
+          <p>Vert, orange, rouge : qui suivre ou éviter.</p>
+        </div>
+        <div class="bg-gray-700 p-6 rounded-2xl hover:scale-105 transition shadow-md">
+          <div class="text-yellow-400 text-3xl mb-4"><i class="fas fa-chart-line"></i></div>
+          <h3 class="font-semibold text-xl mb-2">Suivi en temps réel</h3>
+          <p>Alertes instantanées sur gros mouvements.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREMIUM -->
+  <section id="premium" class="py-16">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl font-bold text-yellow-400 text-center mb-8"><i class="fas fa-crown"></i> Accès Premium</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-gray-800 p-6 rounded-xl text-center space-y-4 border border-gray-700">
+          <h3 class="text-xl font-semibold">Gratuit</h3>
+          <ul class="space-y-2">
+            <li><i class="fas fa-check text-green-400"></i> Recherche basique</li>
+            <li><i class="fas fa-check text-green-400"></i> Notation des traders</li>
+            <li><i class="fas fa-times text-red-400"></i> Historique limité</li>
+          </ul>
+        </div>
+        <div class="relative bg-gradient-to-br from-yellow-400 to-cyan-400 p-6 rounded-xl text-gray-900 text-center scale-105 shadow-lg">
+          <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gray-900 text-sm px-3 py-1 rounded-full">Recommandé</div>
+          <h3 class="text-xl font-semibold">Premium</h3>
+          <ul class="space-y-2">
+            <li><i class="fas fa-check"></i> Recherche avancée</li>
+            <li><i class="fas fa-check"></i> Historique complet</li>
+            <li><i class="fas fa-check"></i> Alertes personnalisées</li>
+            <li><i class="fas fa-check"></i> Analyse prédictive</li>
+          </ul>
+        </div>
+        <div class="bg-gray-800 p-6 rounded-xl text-center space-y-4 border border-gray-700">
+          <h3 class="text-xl font-semibold">Professionnel</h3>
+          <ul class="space-y-2">
+            <li><i class="fas fa-check text-green-400"></i> Tout Premium</li>
+            <li><i class="fas fa-check text-green-400"></i> API accès</li>
+            <li><i class="fas fa-check text-green-400"></i> Support dédié</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECHERCHE WALLET -->
+  <section id="search" class="py-16">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-3xl font-bold text-yellow-400 mb-6"><i class="fas fa-search"></i> Rechercher un wallet</h2>
+      <div class="flex flex-col md:flex-row gap-4 mb-6">
+        <input type="text" id="walletInput" placeholder="Adresse publique…" class="flex-1 p-3 rounded-lg bg-gray-800 border border-gray-700 focus:border-cyan-400 outline-none"/>
+        <select id="chainSelect" class="p-3 rounded-lg bg-gray-800 border border-gray-700 focus:border-cyan-400">
+          <option value="eth-mainnet">Ethereum</option>
+          <option value="bsc-mainnet">Binance Smart Chain</option>
+          <option value="matic-mainnet">Polygon</option>
+        </select>
+        <button id="searchBtn" class="flex items-center gap-2 px-5 py-3 bg-cyan-400 text-gray-900 font-semibold rounded-lg hover:bg-cyan-500 transition">
+          Analyser <i class="fas fa-analytics"></i>
+        </button>
+      </div>
+      <div id="loader" class="hidden flex justify-center py-10">
+        <i class="fas fa-spinner fa-spin text-3xl text-yellow-400"></i>
+      </div>
+      <div id="result" class="result-container space-y-6"></div>
+    </div>
+  </section>
+
+  <!-- WALLET DETAILS -->
+  <section id="walletDetails" class="hidden py-8 bg-gray-800">
+    <div class="max-w-4xl mx-auto px-4 space-y-6">
+      <div class="text-center mb-6">
+        <img id="badgeImage" src="certifié.png" alt="Badge" class="w-24 h-24 mx-auto mb-3">
+        <div id="ratingBadge" class="inline-flex items-center justify-center px-6 py-3 rounded-full">
+          <span id="ratingText" class="font-bold text-white text-xl">TRADER CERTIFIÉ</span>
+        </div>
+      </div>
+      
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="flex items-center gap-4">
+          <h3 class="text-xl"><span class="font-semibold">Adresse :</span> <span id="displayedAddress" class="mono"></span></h3>
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-gray-700 p-3 rounded-lg text-center">
+          <h4 class="font-semibold mb-2 text-sm"><i class="fas fa-exchange-alt"></i> Transactions</h4>
+          <div id="transactionCount" class="mono text-lg">–</div>
+        </div>
+        <div class="bg-gray-700 p-3 rounded-lg text-center">
+          <h4 class="font-semibold mb-2 text-sm"><i class="fas fa-arrow-up"></i> Gains</h4>
+          <div id="totalGains" class="mono text-lg">–</div>
+        </div>
+        <div class="bg-gray-700 p-3 rounded-lg text-center">
+          <h4 class="font-semibold mb-2 text-sm"><i class="fas fa-arrow-down"></i> Pertes</h4>
+          <div id="totalLosses" class="mono text-lg">–</div>
+        </div>
+        <div class="bg-gray-700 p-3 rounded-lg text-center">
+          <h4 class="font-semibold mb-2 text-sm"><i class="fas fa-balance-scale"></i> Ratio</h4>
+          <div id="winLossRatio" class="mono text-lg">–</div>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-4">
+        <div class="bg-gray-700 p-4 rounded-lg">
+          <h4 class="font-semibold mb-3 text-sm"><i class="fas fa-chart-pie"></i> Répartition des actifs</h4>
+          <div style="height: 200px; width: 100%;">
+            <canvas id="assetsChart" style="max-height: 200px; max-width: 100%;"></canvas>
+          </div>
+        </div>
+        <div class="bg-gray-700 p-4 rounded-lg">
+          <h4 class="font-semibold mb-3 text-sm"><i class="fas fa-chart-line"></i> Performance (6 mois)</h4>
+          <div style="height: 200px; width: 100%;">
+            <canvas id="performanceChart" style="max-height: 200px; max-width: 100%;"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL AUTH -->
+  <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center z-50">
+    <div class="bg-gray-800 rounded-xl p-6 w-full max-w-md relative">
+      <button class="absolute top-4 right-4 text-gray-400 hover:text-gray-200 close-modal">
+        <i class="fas fa-times text-2xl"></i>
+      </button>
+      <div class="text-center mb-6">
+        <img src="logo.png" alt="CTC" class="h-16 w-16 mx-auto mb-2"/>
+        <h2 class="text-2xl font-bold text-yellow-400">Connexion à CTC</h2>
+      </div>
+      <div class="flex justify-center gap-4 mb-4">
+        <button data-tab="login" class="auth-tab px-4 py-2 font-semibold rounded-lg bg-gray-700 active">Connexion</button>
+        <button data-tab="register" class="auth-tab px-4 py-2 font-semibold rounded-lg bg-gray-700">Inscription</button>
+      </div>
+      <div id="loginTab" class="auth-tab-content">
+        <button id="googleLoginBtn" class="w-full flex items-center justify-center gap-2 mb-4 px-4 py-2 bg-red-500 text-white rounded-lg">
+          <i class="fab fa-google"></i> Continuer avec Google
+        </button>
+        <form id="loginForm" class="space-y-4">
+          <input type="email" id="loginEmail" required placeholder="Email" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-400 outline-none"/>
+          <input type="password" id="loginPassword" required placeholder="Mot de passe" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-400 outline-none"/>
+          <button type="submit" class="w-full px-5 py-2 bg-yellow-400 text-gray-900 font-semibold rounded-lg hover:shadow-lg transition">
+            Se connecter
+          </button>
+        </form>
+      </div>
+      <div id="registerTab" class="auth-tab-content hidden">
+        <form id="registerForm" class="space-y-4">
+          <input type="text" id="registerName" required placeholder="Nom" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-400 outline-none"/>
+          <input type="email" id="registerEmail" required placeholder="Email" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-400 outline-none"/>
+          <input type="password" id="registerPassword" required placeholder="Mot de passe" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-400 outline-none"/>
+          <button type="submit" class="w-full px-5 py-2 bg-yellow-400 text-gray-900 font-semibold rounded-lg hover:shadow-lg transition">
+            S'inscrire
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="script-clean.js"></script>
+</body>
+</html>
