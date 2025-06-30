@@ -147,74 +147,98 @@
   <!-- TOP TRADERS -->
   <section id="topTraders" class="py-16 bg-gray-800">
     <div class="max-w-6xl mx-auto px-6">
-      <h2 class="text-3xl font-bold text-yellow-400 mb-6 text-center"><i class="fas fa-trophy"></i> Top Traders</h2>
-      <div class="grid md:grid-cols-3 gap-6">
+      <h2 class="text-3xl font-bold text-yellow-400 mb-6 text-center"><i class="fas fa-trophy"></i> Top Traders par Réseau</h2>
+      <div class="grid md:grid-cols-3 gap-6 mb-8">
         <div class="bg-gray-700 p-4 rounded-lg">
-          <h3 class="text-xl font-semibold text-cyan-400 mb-4">Ethereum</h3>
-          <div class="space-y-3">
-            <div class="flex justify-between items-center p-2 bg-gray-600 rounded">
+          <h3 class="text-xl font-semibold text-cyan-400 mb-4 flex items-center gap-2">
+            <i class="fab fa-ethereum"></i> Ethereum
+          </h3>
+          <div id="ethTopTraders" class="space-y-3">
+            <div class="flex items-center justify-between p-3 bg-gray-600 rounded-lg">
               <div>
                 <div class="font-semibold">#1 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045</div>
-                <div class="text-sm text-green-400">+$250,000 (24h)</div>
+                <div class="text-sm text-gray-300">Score: 95/100</div>
+                <div class="text-sm text-green-400">+$250,000</div>
               </div>
-              <button class="follow-trader-btn px-3 py-1 bg-yellow-400 text-gray-900 rounded text-sm font-semibold" data-address="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045">
-                Suivre
-              </button>
+              <button class="follow-trader-btn px-3 py-1 bg-yellow-400 text-gray-900 rounded text-sm font-semibold" data-address="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045">Suivre</button>
             </div>
-            <div class="flex justify-between items-center p-2 bg-gray-600 rounded">
+            <div class="flex items-center justify-between p-3 bg-gray-600 rounded-lg">
               <div>
                 <div class="font-semibold">#2 0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b6</div>
-                <div class="text-sm text-green-400">+$180,000 (24h)</div>
+                <div class="text-sm text-gray-300">Score: 88/100</div>
+                <div class="text-sm text-green-400">+$180,000</div>
               </div>
-              <button class="follow-trader-btn px-3 py-1 bg-yellow-400 text-gray-900 rounded text-sm font-semibold" data-address="0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b6">
-                Suivre
-              </button>
+              <button class="follow-trader-btn px-3 py-1 bg-yellow-400 text-gray-900 rounded text-sm font-semibold" data-address="0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b6">Suivre</button>
+            </div>
+            <div class="flex items-center justify-between p-3 bg-gray-600 rounded-lg">
+              <div>
+                <div class="font-semibold">#3 0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984</div>
+                <div class="text-sm text-gray-300">Score: 82/100</div>
+                <div class="text-sm text-green-400">+$120,000</div>
+              </div>
+              <button class="follow-trader-btn px-3 py-1 bg-yellow-400 text-gray-900 rounded text-sm font-semibold" data-address="0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984">Suivre</button>
             </div>
           </div>
         </div>
         <div class="bg-gray-700 p-4 rounded-lg">
-          <h3 class="text-xl font-semibold text-yellow-400 mb-4">BSC</h3>
-          <div class="space-y-3">
-            <div class="flex justify-between items-center p-2 bg-gray-600 rounded">
+          <h3 class="text-xl font-semibold text-yellow-400 mb-4 flex items-center gap-2">
+            <i class="fas fa-coins"></i> BSC
+          </h3>
+          <div id="bscTopTraders" class="space-y-3">
+            <div class="flex items-center justify-between p-3 bg-gray-600 rounded-lg">
               <div>
                 <div class="font-semibold">#1 0xaB5801a77591cdEe23ac0C896C1BfEe6EE5b1C2F</div>
-                <div class="text-sm text-green-400">+$200,000 (24h)</div>
+                <div class="text-sm text-gray-300">Score: 92/100</div>
+                <div class="text-sm text-green-400">+$200,000</div>
               </div>
-              <button class="follow-trader-btn px-3 py-1 bg-yellow-400 text-gray-900 rounded text-sm font-semibold" data-address="0xaB5801a77591cdEe23ac0C896C1BfEe6EE5b1C2F">
-                Suivre
-              </button>
+              <button class="follow-trader-btn px-3 py-1 bg-yellow-400 text-gray-900 rounded text-sm font-semibold" data-address="0xaB5801a77591cdEe23ac0C896C1BfEe6EE5b1C2F">Suivre</button>
             </div>
-            <div class="flex justify-between items-center p-2 bg-gray-600 rounded">
+            <div class="flex items-center justify-between p-3 bg-gray-600 rounded-lg">
               <div>
                 <div class="font-semibold">#2 0x9E3F4267891cdEe23ac0C896C1BfEe6EE5b8A1B</div>
-                <div class="text-sm text-green-400">+$150,000 (24h)</div>
+                <div class="text-sm text-gray-300">Score: 85/100</div>
+                <div class="text-sm text-green-400">+$150,000</div>
               </div>
-              <button class="follow-trader-btn px-3 py-1 bg-yellow-400 text-gray-900 rounded text-sm font-semibold" data-address="0x9E3F4267891cdEe23ac0C896C1BfEe6EE5b8A1B">
-                Suivre
-              </button>
+              <button class="follow-trader-btn px-3 py-1 bg-yellow-400 text-gray-900 rounded text-sm font-semibold" data-address="0x9E3F4267891cdEe23ac0C896C1BfEe6EE5b8A1B">Suivre</button>
+            </div>
+            <div class="flex items-center justify-between p-3 bg-gray-600 rounded-lg">
+              <div>
+                <div class="font-semibold">#3 0x7D2E9167891cdEe23ac0C896C1BfEe6EE5b5F4C</div>
+                <div class="text-sm text-gray-300">Score: 79/100</div>
+                <div class="text-sm text-green-400">+$100,000</div>
+              </div>
+              <button class="follow-trader-btn px-3 py-1 bg-yellow-400 text-gray-900 rounded text-sm font-semibold" data-address="0x7D2E9167891cdEe23ac0C896C1BfEe6EE5b5F4C">Suivre</button>
             </div>
           </div>
         </div>
         <div class="bg-gray-700 p-4 rounded-lg">
-          <h3 class="text-xl font-semibold text-purple-400 mb-4">Polygon</h3>
-          <div class="space-y-3">
-            <div class="flex justify-between items-center p-2 bg-gray-600 rounded">
+          <h3 class="text-xl font-semibold text-purple-400 mb-4 flex items-center gap-2">
+            <i class="fas fa-gem"></i> Polygon
+          </h3>
+          <div id="polyTopTraders" class="space-y-3">
+            <div class="flex items-center justify-between p-3 bg-gray-600 rounded-lg">
               <div>
                 <div class="font-semibold">#1 0x4B8C7367891cdEe23ac0C896C1BfEe6EE5b9E2D</div>
-                <div class="text-sm text-green-400">+$175,000 (24h)</div>
+                <div class="text-sm text-gray-300">Score: 89/100</div>
+                <div class="text-sm text-green-400">+$175,000</div>
               </div>
-              <button class="follow-trader-btn px-3 py-1 bg-yellow-400 text-gray-900 rounded text-sm font-semibold" data-address="0x4B8C7367891cdEe23ac0C896C1BfEe6EE5b9E2D">
-                Suivre
-              </button>
+              <button class="follow-trader-btn px-3 py-1 bg-yellow-400 text-gray-900 rounded text-sm font-semibold" data-address="0x4B8C7367891cdEe23ac0C896C1BfEe6EE5b9E2D">Suivre</button>
             </div>
-            <div class="flex justify-between items-center p-2 bg-gray-600 rounded">
+            <div class="flex items-center justify-between p-3 bg-gray-600 rounded-lg">
               <div>
                 <div class="font-semibold">#2 0x6A1F8567891cdEe23ac0C896C1BfEe6EE5b4C7B</div>
-                <div class="text-sm text-green-400">+$125,000 (24h)</div>
+                <div class="text-sm text-gray-300">Score: 83/100</div>
+                <div class="text-sm text-green-400">+$125,000</div>
               </div>
-              <button class="follow-trader-btn px-3 py-1 bg-yellow-400 text-gray-900 rounded text-sm font-semibold" data-address="0x6A1F8567891cdEe23ac0C896C1BfEe6EE5b4C7B">
-                Suivre
-              </button>
+              <button class="follow-trader-btn px-3 py-1 bg-yellow-400 text-gray-900 rounded text-sm font-semibold" data-address="0x6A1F8567891cdEe23ac0C896C1BfEe6EE5b4C7B">Suivre</button>
+            </div>
+            <div class="flex items-center justify-between p-3 bg-gray-600 rounded-lg">
+              <div>
+                <div class="font-semibold">#3 0x2E9A6467891cdEe23ac0C896C1BfEe6EE5b8F1C</div>
+                <div class="text-sm text-gray-300">Score: 76/100</div>
+                <div class="text-sm text-green-400">+$95,000</div>
+              </div>
+              <button class="follow-trader-btn px-3 py-1 bg-yellow-400 text-gray-900 rounded text-sm font-semibold" data-address="0x2E9A6467891cdEe23ac0C896C1BfEe6EE5b8F1C">Suivre</button>
             </div>
           </div>
         </div>
@@ -226,22 +250,22 @@
   <section id="token" class="py-16">
     <div class="max-w-6xl mx-auto px-6 text-center">
       <h2 class="text-3xl font-bold text-yellow-400 mb-6"><i class="fas fa-coins"></i> Token CTC</h2>
-      <p class="text-gray-300 mb-10">Le jeton CTC donne accès au niveau Premium et à la gouvernance.</p>
+      <p class="text-gray-300 mb-10">Le jeton CTC donne accès au niveau Premium et à la gouvernance. Bientôt sur Pump.fun.</p>
       <div class="grid sm:grid-cols-3 gap-6">
-        <div class="bg-gray-800 p-6 rounded-lg">
+        <div class="bg-gray-800 p-6 rounded-lg shadow-md">
           <div class="text-cyan-400 text-4xl mb-2"><i class="fas fa-users"></i></div>
           <h3 class="font-semibold text-xl">Communauté</h3>
           <p class="mono text-2xl">10 000+</p>
         </div>
-        <div class="bg-gray-800 p-6 rounded-lg">
+        <div class="bg-gray-800 p-6 rounded-lg shadow-md">
           <div class="text-yellow-400 text-4xl mb-2"><i class="fas fa-exchange-alt"></i></div>
           <h3 class="font-semibold text-xl">Liquidité</h3>
-          <p class="mono text-2xl">Sécurisée</p>
+          <p class="mono text-2xl">Sécurisée 2 ans</p>
         </div>
-        <div class="bg-gray-800 p-6 rounded-lg">
+        <div class="bg-gray-800 p-6 rounded-lg shadow-md">
           <div class="text-red-400 text-4xl mb-2"><i class="fas fa-lock"></i></div>
           <h3 class="font-semibold text-xl">Sécurité</h3>
-          <p class="mono text-2xl">Audité</p>
+          <p class="mono text-2xl">Audit complet</p>
         </div>
       </div>
     </div>
@@ -360,298 +384,6 @@
     </div>
   </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      console.log('Page chargée');
-      
-      // Bouton connexion
-      const loginBtn = document.getElementById('loginBtn');
-      const loginModal = document.getElementById('loginModal');
-      if (loginBtn && loginModal) {
-        loginBtn.onclick = () => {
-          console.log('Connexion cliquée');
-          loginModal.classList.remove('hidden');
-        };
-      }
-      
-      // Fermer modal
-      const closeModal = document.querySelector('.close-modal');
-      if (closeModal && loginModal) {
-        closeModal.onclick = () => loginModal.classList.add('hidden');
-      }
-      
-      // Firebase init
-      if (typeof firebase !== 'undefined') {
-        firebase.initializeApp({
-          apiKey: "AIzaSyD1QR_NIqm9YrPN5xppZM08DdlUUgGiFMI",
-          authDomain: "crypto-trader-certified.firebaseapp.com",
-          projectId: "crypto-trader-certified"
-        });
-        window.auth = firebase.auth();
-        window.db = firebase.firestore();
-      }
-      
-      // Recherche wallet
-      const searchBtn = document.getElementById('searchBtn');
-      if (searchBtn) {
-        searchBtn.onclick = async () => {
-          const address = document.getElementById('walletInput').value.trim();
-          const chainId = document.getElementById('chainSelect').value;
-          
-          if (!address || !/^0x[a-fA-F0-9]{40}$/.test(address)) {
-            alert('Adresse invalide');
-            return;
-          }
-          
-          document.getElementById('loader').classList.remove('hidden');
-          
-          try {
-            const data = await fetchWalletData(address, chainId);
-            displayWalletDetails(data);
-            document.getElementById('walletDetails').classList.remove('hidden');
-          } catch (error) {
-            alert('Erreur: ' + error.message);
-          } finally {
-            document.getElementById('loader').classList.add('hidden');
-          }
-        };
-      }
-      
-      // Top traders avec suivi
-      document.querySelectorAll('.follow-trader-btn').forEach(btn => {
-        btn.onclick = () => followTrader(btn.dataset.address);
-      });
-    });
-    
-    // Fetch wallet data
-    async function fetchWalletData(address, chainId) {
-      const apiKey = 'cqt_rQCtDTV93Qvwpwdj6XX3xMCfq9QM';
-      
-      // Balances
-      const balancesRes = await fetch(`https://api.covalenthq.com/v1/${chainId}/address/${address}/balances_v2/?key=${apiKey}`);
-      const balances = await balancesRes.json();
-      
-      // Transactions
-      const txRes = await fetch(`https://api.covalenthq.com/v1/${chainId}/address/${address}/transactions_v2/?key=${apiKey}&page-size=50`);
-      const transactions = await txRes.json();
-      
-      if (!balances.data || !transactions.data) {
-        throw new Error('Données indisponibles');
-      }
-      
-      return { address, balances: balances.data, transactions: transactions.data, chainId };
-    }
-    
-    // Display wallet details
-    function displayWalletDetails(data) {
-      document.getElementById('displayedAddress').textContent = `${data.address.substring(0, 6)}...${data.address.substring(data.address.length - 4)}`;
-      
-      // Stats
-      const totalValue = data.balances.items.reduce((sum, item) => sum + (item.quote || 0), 0);
-      document.getElementById('transactionCount').textContent = data.transactions.items.length;
-      document.getElementById('totalGains').textContent = `$${Math.floor(totalValue * 0.7).toLocaleString()}`;
-      document.getElementById('totalLosses').textContent = `$${Math.floor(totalValue * 0.3).toLocaleString()}`;
-      document.getElementById('winLossRatio').textContent = '2.33';
-      
-      // Rating
-      const rating = totalValue > 10000 ? 'green' : totalValue > 1000 ? 'orange' : 'red';
-      const ratingBadge = document.getElementById('ratingBadge');
-      const ratingText = document.getElementById('ratingText');
-      const badgeImage = document.getElementById('badgeImage');
-      
-      ratingBadge.className = 'inline-flex items-center justify-center px-6 py-3 rounded-full';
-      
-      if (rating === 'green') {
-        ratingBadge.classList.add('bg-green-500');
-        ratingText.textContent = 'TRADER CERTIFIÉ';
-        badgeImage.src = 'certifié.png';
-      } else if (rating === 'orange') {
-        ratingBadge.classList.add('bg-yellow-500');
-        ratingText.textContent = 'TRADER MOYEN';
-        badgeImage.src = 'moyen.png';
-      } else {
-        ratingBadge.classList.add('bg-red-500');
-        ratingText.textContent = 'TRADER À ÉVITER';
-        badgeImage.src = 'mauvais.png';
-      }
-      
-      // Crypto holdings avec copy
-      displayCryptoHoldings(data.balances.items);
-      
-      // Transactions récentes
-      displayRecentTransactions(data.transactions.items);
-      
-      // Bouton suivre
-      setupFollowButton(data.address);
-    }
-    
-    // Display crypto holdings
-    function displayCryptoHoldings(items) {
-      const container = document.getElementById('cryptoHoldings') || createCryptoHoldingsSection();
-      
-      const validItems = items.filter(item => item.quote > 1).sort((a, b) => b.quote - a.quote);
-      
-      container.innerHTML = validItems.map(item => `
-        <div class="bg-gray-600 p-3 rounded-lg flex justify-between items-center">
-          <div>
-            <div class="font-semibold">${item.contract_ticker_symbol || 'ETH'}</div>
-            <div class="text-sm text-gray-300">$${item.quote.toLocaleString()}</div>
-            <div class="text-xs text-gray-400">${(item.balance / Math.pow(10, item.contract_decimals)).toFixed(4)}</div>
-          </div>
-          <div class="flex gap-2">
-            <button class="copy-btn px-2 py-1 bg-blue-500 text-white text-xs rounded" data-text="${item.contract_address || '0x0000000000000000000000000000000000000000'}">
-              Copier
-            </button>
-            <button class="details-btn px-2 py-1 bg-green-500 text-white text-xs rounded" data-symbol="${item.contract_ticker_symbol}">
-              Détails
-            </button>
-          </div>
-        </div>
-      `).join('');
-      
-      // Copy buttons
-      container.querySelectorAll('.copy-btn').forEach(btn => {
-        btn.onclick = () => {
-          navigator.clipboard.writeText(btn.dataset.text);
-          btn.textContent = 'Copié!';
-          setTimeout(() => btn.textContent = 'Copier', 2000);
-        };
-      });
-    }
-    
-    // Display recent transactions
-    function displayRecentTransactions(transactions) {
-      const container = document.getElementById('recentTxList') || createTransactionsSection();
-      
-      container.innerHTML = transactions.slice(0, 10).map(tx => {
-        const date = new Date(tx.block_signed_at);
-        const isBuy = Math.random() > 0.5;
-        return `
-          <div class="bg-gray-600 p-3 rounded-lg flex justify-between items-center">
-            <div>
-              <div class="font-semibold ${isBuy ? 'text-green-400' : 'text-red-400'}">
-                ${isBuy ? 'ACHAT' : 'VENTE'}
-              </div>
-              <div class="text-sm text-gray-300">${date.toLocaleDateString()} ${date.toLocaleTimeString()}</div>
-              <div class="text-xs text-gray-400">$${(Math.random() * 10000).toFixed(0)}</div>
-            </div>
-            <button class="copy-btn px-2 py-1 bg-blue-500 text-white text-xs rounded" data-text="${tx.tx_hash}">
-              Hash
-            </button>
-          </div>
-        `;
-      }).join('');
-      
-      container.querySelectorAll('.copy-btn').forEach(btn => {
-        btn.onclick = () => {
-          navigator.clipboard.writeText(btn.dataset.text);
-          btn.textContent = 'Copié!';
-          setTimeout(() => btn.textContent = 'Hash', 2000);
-        };
-      });
-    }
-    
-    // Create sections if missing
-    function createCryptoHoldingsSection() {
-      const section = document.createElement('div');
-      section.id = 'cryptoHoldings';
-      section.className = 'space-y-3';
-      
-      const title = document.createElement('h4');
-      title.className = 'font-semibold text-lg mb-3';
-      title.innerHTML = '<i class="fas fa-coins"></i> Cryptos Détenues';
-      
-      const container = document.querySelector('#walletDetails .space-y-6');
-      container.appendChild(title);
-      container.appendChild(section);
-      
-      return section;
-    }
-    
-    function createTransactionsSection() {
-      const section = document.createElement('div');
-      section.id = 'recentTxList';
-      section.className = 'space-y-3 max-h-64 overflow-y-auto';
-      
-      const title = document.createElement('h4');
-      title.className = 'font-semibold text-lg mb-3';
-      title.innerHTML = '<i class="fas fa-history"></i> Transactions Récentes';
-      
-      const container = document.querySelector('#walletDetails .space-y-6');
-      container.appendChild(title);
-      container.appendChild(section);
-      
-      return section;
-    }
-    
-    // Follow trader system
-    function setupFollowButton(address) {
-      let followBtn = document.getElementById('followTraderBtn');
-      if (!followBtn) {
-        followBtn = document.createElement('button');
-        followBtn.id = 'followTraderBtn';
-        followBtn.className = 'px-4 py-2 bg-yellow-400 text-gray-900 font-semibold rounded-lg';
-        document.querySelector('#walletDetails .flex').appendChild(followBtn);
-      }
-      
-      const follows = JSON.parse(localStorage.getItem('follows') || '[]');
-      const isFollowing = follows.includes(address);
-      
-      followBtn.innerHTML = isFollowing ? 
-        '<i class="fas fa-user-check"></i> Suivi' : 
-        '<i class="fas fa-user-plus"></i> Suivre';
-      
-      followBtn.onclick = () => {
-        if (isFollowing) {
-          unfollowTrader(address);
-        } else {
-          followTrader(address);
-        }
-      };
-    }
-    
-    function followTrader(address) {
-      const follows = JSON.parse(localStorage.getItem('follows') || '[]');
-      
-      if (follows.length >= 3) {
-        alert('Maximum 3 traders suivis');
-        return;
-      }
-      
-      if (!follows.includes(address)) {
-        follows.push(address);
-        localStorage.setItem('follows', JSON.stringify(follows));
-        alert('Trader suivi!');
-        setupFollowButton(address);
-      }
-    }
-    
-    function unfollowTrader(address) {
-      const follows = JSON.parse(localStorage.getItem('follows') || '[]');
-      const index = follows.indexOf(address);
-      
-      if (index > -1) {
-        follows.splice(index, 1);
-        localStorage.setItem('follows', JSON.stringify(follows));
-        alert('Trader retiré');
-        setupFollowButton(address);
-      }
-    }
-    
-    // Real-time updates
-    setInterval(() => {
-      const walletDetails = document.getElementById('walletDetails');
-      if (!walletDetails.classList.contains('hidden')) {
-        const address = document.getElementById('displayedAddress').textContent.replace('...', '');
-        if (address.length > 10) {
-          // Refresh data every 30 seconds
-          console.log('Mise à jour temps réel...');
-        }
-      }
-    }, 30000);
-      
-
-    });
-  </script>
+  <script src="script-complete.js"></script>
 </body>
 </html>
