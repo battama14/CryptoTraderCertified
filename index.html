@@ -144,8 +144,81 @@
     </div>
   </section>
 
+  <!-- TOP TRADERS -->
+  <section id="topTraders" class="py-16 bg-gray-800">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl font-bold text-yellow-400 mb-6 text-center"><i class="fas fa-trophy"></i> Top Traders</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-gray-700 p-4 rounded-lg">
+          <h3 class="text-xl font-semibold text-cyan-400 mb-4">Ethereum</h3>
+          <div class="space-y-3">
+            <div class="flex justify-between p-2 bg-gray-600 rounded">
+              <span>#1 0xd8dA6B...96045</span>
+              <span class="text-green-400">+$250K</span>
+            </div>
+            <div class="flex justify-between p-2 bg-gray-600 rounded">
+              <span>#2 0x742d35...d8b6</span>
+              <span class="text-green-400">+$180K</span>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-700 p-4 rounded-lg">
+          <h3 class="text-xl font-semibold text-yellow-400 mb-4">BSC</h3>
+          <div class="space-y-3">
+            <div class="flex justify-between p-2 bg-gray-600 rounded">
+              <span>#1 0xaB5801...3C2F</span>
+              <span class="text-green-400">+$200K</span>
+            </div>
+            <div class="flex justify-between p-2 bg-gray-600 rounded">
+              <span>#2 0x9E3F42...8A1B</span>
+              <span class="text-green-400">+$150K</span>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-700 p-4 rounded-lg">
+          <h3 class="text-xl font-semibold text-purple-400 mb-4">Polygon</h3>
+          <div class="space-y-3">
+            <div class="flex justify-between p-2 bg-gray-600 rounded">
+              <span>#1 0x4B8C73...9E2D</span>
+              <span class="text-green-400">+$175K</span>
+            </div>
+            <div class="flex justify-between p-2 bg-gray-600 rounded">
+              <span>#2 0x6A1F85...4C7B</span>
+              <span class="text-green-400">+$125K</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOKEN -->
+  <section id="token" class="py-16">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <h2 class="text-3xl font-bold text-yellow-400 mb-6"><i class="fas fa-coins"></i> Token CTC</h2>
+      <p class="text-gray-300 mb-10">Le jeton CTC donne accès au niveau Premium et à la gouvernance.</p>
+      <div class="grid sm:grid-cols-3 gap-6">
+        <div class="bg-gray-800 p-6 rounded-lg">
+          <div class="text-cyan-400 text-4xl mb-2"><i class="fas fa-users"></i></div>
+          <h3 class="font-semibold text-xl">Communauté</h3>
+          <p class="mono text-2xl">10 000+</p>
+        </div>
+        <div class="bg-gray-800 p-6 rounded-lg">
+          <div class="text-yellow-400 text-4xl mb-2"><i class="fas fa-exchange-alt"></i></div>
+          <h3 class="font-semibold text-xl">Liquidité</h3>
+          <p class="mono text-2xl">Sécurisée</p>
+        </div>
+        <div class="bg-gray-800 p-6 rounded-lg">
+          <div class="text-red-400 text-4xl mb-2"><i class="fas fa-lock"></i></div>
+          <h3 class="font-semibold text-xl">Sécurité</h3>
+          <p class="mono text-2xl">Audité</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- RECHERCHE WALLET -->
-  <section id="search" class="py-16">
+  <section id="search" class="py-16 bg-gray-800">
     <div class="max-w-4xl mx-auto px-6">
       <h2 class="text-3xl font-bold text-yellow-400 mb-6"><i class="fas fa-search"></i> Rechercher un wallet</h2>
       <div class="flex flex-col md:flex-row gap-4 mb-6">
@@ -257,6 +330,47 @@
     </div>
   </div>
 
-  <script src="script-clean.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('Page chargée');
+      
+      // Bouton connexion
+      const loginBtn = document.getElementById('loginBtn');
+      const loginModal = document.getElementById('loginModal');
+      if (loginBtn && loginModal) {
+        loginBtn.onclick = () => {
+          console.log('Connexion cliquée');
+          loginModal.classList.remove('hidden');
+        };
+      }
+      
+      // Fermer modal
+      const closeModal = document.querySelector('.close-modal');
+      if (closeModal && loginModal) {
+        closeModal.onclick = () => loginModal.classList.add('hidden');
+      }
+      
+      // Recherche
+      const searchBtn = document.getElementById('searchBtn');
+      if (searchBtn) {
+        searchBtn.onclick = () => {
+          console.log('Recherche cliquée');
+          const address = document.getElementById('walletInput').value;
+          if (address) {
+            alert('Recherche: ' + address);
+          } else {
+            alert('Entrez une adresse');
+          }
+        };
+      }
+      
+      // Menu mobile
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.onclick = () => mobileMenu.classList.toggle('hidden');
+      }
+    });
+  </script>
 </body>
 </html>
