@@ -113,8 +113,10 @@
 
 
   <!-- HERO -->
-  <section id="hero" class="pt-24 pb-16">
+  <section id="hero" class="pt-24 pb-16" style="display: block !important; visibility: visible !important;">
     <style>
+      body { display: block !important; visibility: visible !important; }
+      * { display: initial !important; visibility: visible !important; }
       #hero * { transition: none !important; transform: none !important; }
       #hero h1, #hero p { width: 100% !important; max-width: none !important; position: static !important; }
       .element-3d { transform: none !important; }
@@ -578,6 +580,8 @@
 
   <!-- Firebase Config -->
   <script src="firebase-config.js"></script>
+  <!-- Emergency Fix -->
+  <script src="emergency-fix.js"></script>
   <!-- Netlify Fix -->
   <script src="netlify-fix.js"></script>
   <!-- SCRIPT -->

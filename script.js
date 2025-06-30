@@ -1,36 +1,21 @@
 // script.js - CTC
 
-// --- Connexion Firebase ---
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { 
-  getAuth, 
-  signInWithPopup, 
-  GoogleAuthProvider, 
-  onAuthStateChanged, 
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword,
-  sendPasswordResetEmail
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, collection, doc, getDoc, setDoc, addDoc, query, where, getDocs, deleteDoc, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
+// Variables Firebase globales
+let auth, db, googleProvider;
 
-const firebaseConfig = {
-  apiKey: "AIzaSyD1QR_NIqm9YrPN5xppZM08DdlUUgGiFMI",
-  authDomain: "crypto-trader-certified.firebaseapp.com",
-  databaseURL: "https://crypto-trader-certified-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "crypto-trader-certified",
-  storageBucket: "crypto-trader-certified.firebasestorage.app",
-  messagingSenderId: "1026750561248",
-  appId: "1:1026750561248:web:9dcf56f1526e8e3df6c985",
-  measurementId: "G-09PT2CXLSR"
-};
+// Initialiser Firebase quand disponible
+function initFirebase() {
+  if (typeof firebase !== 'undefined') {
+    auth = firebase.auth();
+    db = firebase.firestore();
+    googleProvider = new firebase.auth.GoogleAuthProvider();
+    console.log('Firebase initialisé');
+  } else {
+    setTimeout(initFirebase, 500);
+  }
+}
 
-// Initialisation Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const analytics = getAnalytics(app);
-const googleProvider = new GoogleAuthProvider();
+initFirebase();
 
 // Variables globales
 let currentWalletData = null;
