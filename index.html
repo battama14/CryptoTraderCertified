@@ -10,6 +10,10 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet"/>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
@@ -30,6 +34,34 @@
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Responsive Mobile/Tablette */
+    @media (max-width: 768px) {
+      .max-w-6xl { max-width: 100%; padding: 0 1rem; }
+      .grid { grid-template-columns: 1fr !important; gap: 1rem; }
+      .lg\:grid-cols-2 { grid-template-columns: 1fr !important; }
+      .md\:grid-cols-2 { grid-template-columns: 1fr !important; }
+      .md\:grid-cols-3 { grid-template-columns: 1fr !important; }
+      .lg\:grid-cols-3 { grid-template-columns: 1fr !important; }
+      .lg\:grid-cols-4 { grid-template-columns: repeat(2, 1fr) !important; }
+      .text-4xl { font-size: 1.875rem !important; }
+      .md\:text-5xl { font-size: 2.25rem !important; }
+      .hidden.md\:flex { display: none !important; }
+      .md\:hidden { display: block !important; }
+      .px-6 { padding-left: 1rem; padding-right: 1rem; }
+      .py-16 { padding-top: 2rem; padding-bottom: 2rem; }
+      .gap-8 { gap: 1rem; }
+      .space-y-6 > * + * { margin-top: 1rem; }
+    }
+    
+    @media (max-width: 480px) {
+      .text-4xl { font-size: 1.5rem !important; }
+      .md\:text-5xl { font-size: 1.875rem !important; }
+      .px-5 { padding-left: 0.75rem; padding-right: 0.75rem; }
+      .py-3 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+      .lg\:grid-cols-4 { grid-template-columns: 1fr !important; }
+      .max-w-4xl { max-width: 100%; padding: 0 0.5rem; }
     }
     
     /* Style pour le modal */
@@ -63,11 +95,22 @@
                      font-semibold rounded-lg hover:shadow-lg transition-all">
         <i class="fas fa-user-lock"></i> Connexion
       </button>
-      <button class="md:hidden text-gray-400 focus:outline-none">
+      <button id="mobileMenuBtn" class="md:hidden text-gray-400 focus:outline-none">
         <i class="fas fa-bars text-2xl"></i>
       </button>
     </div>
-  </header>
+    <!-- Menu mobile -->
+    <div id="mobileMenu" class="hidden md:hidden bg-gray-800 px-6 py-4">
+      <nav class="flex flex-col gap-4 text-gray-300">
+        <a href="#features" class="hover:text-yellow-400 transition">Fonctionnalités</a>
+        <a href="#premium" class="hover:text-yellow-400 transition">Premium</a>
+        <a href="#token" class="hover:text-yellow-400 transition">Token</a>
+        <a href="#search" class="hover:text-yellow-400 transition">Recherche</a>
+        <button id="mobileLoginBtn" class="text-left px-4 py-2 bg-yellow-400 text-gray-900 font-semibold rounded-lg">
+          <i class="fas fa-user-lock"></i> Connexion
+        </button>
+      </nav>
+
 
   <!-- HERO -->
   <section id="hero" class="pt-24 pb-16">
@@ -533,8 +576,12 @@
     </div>
   </div>
 
+  <!-- Firebase Config -->
+  <script src="firebase-config.js"></script>
+  <!-- Netlify Fix -->
+  <script src="netlify-fix.js"></script>
   <!-- SCRIPT -->
-  <script src="script.js" type="module"></script>
+  <script src="script.js"></script>
   
   <!-- SCRIPTS DE TEST ET MONITORING -->
   <script src="test-suite.js"></script>
@@ -545,6 +592,7 @@
   <script src="chart-init.js"></script>
   <script src="layout-fix.js"></script>
   <script src="social-auto-post.js"></script>
+  <script src="mobile-responsive.js"></script>
 </body>
 </html>
 
