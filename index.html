@@ -6,6 +6,12 @@
     <title>CryptoTraderCertified - Meilleurs Traders Crypto</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <!-- Firebase Auth -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <!-- Firebase Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
     <style>
         @keyframes slideIn { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
@@ -15,6 +21,23 @@
         .trader-certified { border-left: 4px solid #10B981; }
         .trader-moyen { border-left: 4px solid #F59E0B; }
         .trader-eviter { border-left: 4px solid #EF4444; }
+        
+        /* Styles responsives supplémentaires */
+        @media (max-width: 640px) {
+            #notifications {
+                left: 1rem;
+                right: 1rem;
+                width: auto;
+            }
+            
+            .trader-card {
+                padding: 1rem !important;
+            }
+            
+            .trader-card .text-sm {
+                font-size: 0.75rem !important;
+            }
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white min-h-screen">
@@ -22,14 +45,12 @@
     <header class="bg-gray-800/90 backdrop-blur-sm border-b border-gray-700 sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4">
             <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-8">
+                <div class="flex items-center space-x-4 md:space-x-8">
                     <div class="flex items-center space-x-3">
-                        <img src="logo.png" alt="CryptoTraderCertified" class="w-10 h-10 rounded-lg object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-                        <div class="w-10 h-10 bg-gradient-to-r from-green-500 to-blue-600 rounded-lg flex items-center justify-center" style="display:none">
-                            <i data-lucide="shield-check" class="w-6 h-6 text-white"></i>
-                        </div>
-                        <h1 class="text-2xl font-bold gradient-text">CryptoTraderCertified</h1>
+                        <img src="logo.png" alt="Logo" class="w-12 h-12 md:w-16 md:h-16 rounded-lg object-contain">
+                        <h1 class="text-xl md:text-2xl font-bold gradient-text">CryptoTraderCertified</h1>
                     </div>
+                    <!-- Menu pour desktop -->
                     <nav class="hidden lg:flex space-x-6">
                         <a href="#top-traders" onclick="scrollToSection('top-traders')" class="text-gray-300 hover:text-white transition-colors cursor-pointer">Top Traders</a>
                         <a href="#search" onclick="scrollToSection('search')" class="text-gray-300 hover:text-white transition-colors cursor-pointer">Recherche</a>
@@ -37,56 +58,70 @@
                         <a href="#premium" onclick="scrollToSection('premium')" class="text-gray-300 hover:text-white transition-colors cursor-pointer">Premium</a>
                     </nav>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <div id="user-info" class="hidden items-center space-x-3">
+                <div class="flex items-center space-x-2 md:space-x-4">
+                    <div id="user-info" class="hidden items-center space-x-2 md:space-x-3">
                         <button id="notifications-btn" class="relative p-2 rounded-lg hover:bg-gray-700 transition-all">
                             <i data-lucide="bell" class="w-5 h-5"></i>
                             <span id="notification-count" class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
                         </button>
-                        <span id="user-email" class="text-sm text-gray-300"></span>
+                        <span id="user-email" class="hidden sm:inline text-sm text-gray-300"></span>
                         <div id="premium-badge" class="hidden bg-gradient-to-r from-green-400 to-blue-600 text-black px-3 py-1 rounded-full text-xs font-bold">🛡️ CTC HOLDER</div>
                     </div>
-                    <button id="auth-btn" class="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 px-6 py-2 rounded-lg font-medium transition-all">
+                    <button id="auth-btn" class="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 px-4 sm:px-6 py-2 rounded-lg font-medium transition-all text-sm sm:text-base">
                         Se connecter
                     </button>
+                    <!-- Bouton menu hamburger pour mobile -->
+                    <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg hover:bg-gray-700 transition-all">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
                 </div>
+            </div>
+            
+            <!-- Menu mobile (caché par défaut) -->
+            <div id="mobile-menu" class="hidden lg:hidden mt-4 py-3 border-t border-gray-700">
+                <nav class="flex flex-col space-y-3">
+                    <a href="#top-traders" onclick="scrollToSection('top-traders'); toggleMobileMenu();" class="text-gray-300 hover:text-white transition-colors cursor-pointer py-2 px-1">Top Traders</a>
+                    <a href="#search" onclick="scrollToSection('search'); toggleMobileMenu();" class="text-gray-300 hover:text-white transition-colors cursor-pointer py-2 px-1">Recherche</a>
+                    <a href="#followed-traders" onclick="scrollToSection('followed-traders'); toggleMobileMenu();" class="text-gray-300 hover:text-white transition-colors cursor-pointer py-2 px-1">Mes Traders</a>
+                    <a href="#premium" onclick="scrollToSection('premium'); toggleMobileMenu();" class="text-gray-300 hover:text-white transition-colors cursor-pointer py-2 px-1">Premium</a>
+                </nav>
             </div>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section id="hero" class="relative py-16 overflow-hidden">
+    <section id="hero" class="relative py-10 md:py-16 overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-r from-green-600/20 to-blue-600/20"></div>
         <div class="container mx-auto px-4 relative">
             <div class="text-center max-w-4xl mx-auto">
-                <h1 class="text-4xl md:text-6xl font-bold mb-6 gradient-text">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 gradient-text">
                     Les Meilleurs Traders Crypto Certifiés
                 </h1>
-                <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                <p class="text-base sm:text-lg md:text-xl text-gray-300 mb-6 md:mb-8 max-w-2xl mx-auto px-2">
                     Découvrez les traders les plus performants analysés automatiquement sur la blockchain Ethereum. Données réelles en temps réel.
                 </p>
-                <div class="bg-gray-800/80 backdrop-blur-sm rounded-xl p-4 inline-block">
-                    <p class="text-sm text-gray-400">Dernière mise à jour: <span id="last-update" class="text-green-400 font-medium">En attente...</span></p>
+                <div class="bg-gray-800/80 backdrop-blur-sm rounded-xl p-3 md:p-4 inline-block">
+                    <p class="text-xs sm:text-sm text-gray-400">Dernière mise à jour: <span id="last-update" class="text-green-400 font-medium">En attente...</span></p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Search Section -->
-    <section id="search" class="py-12 bg-gray-800/50">
+    <section id="search" class="py-8 md:py-12 bg-gray-800/50">
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto">
-                <div class="text-center mb-8">
-                    <h2 class="text-3xl font-bold mb-4">🔍 Analyser un Wallet</h2>
-                    <p class="text-gray-400">Entrez une adresse Ethereum pour analyser ses performances réelles</p>
+                <div class="text-center mb-6 md:mb-8">
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-2 md:mb-4">🔍 Analyser un Wallet</h2>
+                    <p class="text-sm sm:text-base text-gray-400 px-2">Entrez une adresse Ethereum pour analyser ses performances réelles</p>
                 </div>
                 
-                <div class="bg-gray-800/80 backdrop-blur-sm rounded-xl p-6 border border-gray-700">
-                    <div class="flex flex-col sm:flex-row gap-4 mb-6">
+                <div class="bg-gray-800/80 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-gray-700">
+                    <div class="flex flex-col sm:flex-row gap-3 md:gap-4 mb-4 md:mb-6">
                         <input type="text" id="wallet-input" placeholder="Adresse Ethereum (0x...)" 
                                value="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
-                               class="flex-1 bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all">
-                        <button id="analyze-btn" class="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 px-8 py-3 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105">
+                               class="flex-1 bg-gray-700/50 border border-gray-600 rounded-lg px-3 md:px-4 py-2 md:py-3 text-sm md:text-base focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all">
+                        <button id="analyze-btn" class="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 px-4 sm:px-6 md:px-8 py-2 md:py-3 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105 text-sm md:text-base">
                             Analyser
                         </button>
                     </div>
@@ -201,6 +236,7 @@
         let currentUser = null;
         let isPremium = false;
     </script>
+    <script src="firebase-config.js"></script>
     <script src="script.js"></script>
     <script src="trader-details.js"></script>
 </body>

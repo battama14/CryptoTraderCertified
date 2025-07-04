@@ -249,10 +249,10 @@ function displayAnalysis(analysis) {
     };
     
     resultDiv.innerHTML = `
-        <div class="border-l-4 ${ratingColors[analysis.rating]} rounded-lg p-6">
-            <div class="flex items-center justify-between mb-4">
-                <h3 class="text-xl font-bold">Analyse Blockchain Réelle</h3>
-                <span class="text-sm font-medium ${analysis.rating === 'certified' ? 'text-green-400' : analysis.rating === 'moyen' ? 'text-yellow-400' : 'text-red-400'}">
+        <div class="border-l-4 ${ratingColors[analysis.rating]} rounded-lg p-4 sm:p-6">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
+                <h3 class="text-lg sm:text-xl font-bold">Analyse Blockchain Réelle</h3>
+                <span class="text-xs sm:text-sm font-medium ${analysis.rating === 'certified' ? 'text-green-400' : analysis.rating === 'moyen' ? 'text-yellow-400' : 'text-red-400'}">
                     ${ratingLabels[analysis.rating]}
                 </span>
             </div>
@@ -260,52 +260,52 @@ function displayAnalysis(analysis) {
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="space-y-2">
                     <div class="flex justify-between">
-                        <span class="text-gray-400">Adresse:</span>
-                        <span class="font-medium">${analysis.address.slice(0, 10)}...${analysis.address.slice(-6)}</span>
+                        <span class="text-sm text-gray-400">Adresse:</span>
+                        <span class="text-sm font-medium">${analysis.address.slice(0, 6)}...${analysis.address.slice(-4)}</span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="text-gray-400">Balance ETH:</span>
-                        <span class="font-medium">${analysis.balance.toFixed(4)} ETH</span>
+                        <span class="text-sm text-gray-400">Balance ETH:</span>
+                        <span class="text-sm font-medium">${analysis.balance.toFixed(4)} ETH</span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="text-gray-400">Transactions:</span>
-                        <span class="font-medium">${analysis.transactions}</span>
+                        <span class="text-sm text-gray-400">Transactions:</span>
+                        <span class="text-sm font-medium">${analysis.transactions}</span>
                     </div>
                 </div>
                 <div class="space-y-2">
                     <div class="flex justify-between">
-                        <span class="text-gray-400">Gain 24h:</span>
-                        <span class="font-medium ${analysis.gain24h >= 0 ? 'text-green-400' : 'text-red-400'}">
+                        <span class="text-sm text-gray-400">Gain 24h:</span>
+                        <span class="text-sm font-medium ${analysis.gain24h >= 0 ? 'text-green-400' : 'text-red-400'}">
                             ${analysis.gain24h >= 0 ? '+' : ''}${analysis.gain24h.toFixed(2)}%
                         </span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="text-gray-400">Transactions:</span>
-                        <span class="font-medium">${analysis.transactions}</span>
+                        <span class="text-sm text-gray-400">Activité 24h:</span>
+                        <span class="text-sm font-medium">${analysis.recent24hTxs} tx</span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="text-gray-400">Score:</span>
-                        <span class="font-medium">${analysis.score}/100</span>
+                        <span class="text-sm text-gray-400">Score:</span>
+                        <span class="text-sm font-medium">${analysis.score}/100</span>
                     </div>
                 </div>
             </div>
             
-            <div class="mt-4 text-center">
-                <p class="text-sm text-gray-400">Prix ETH: $${analysis.ethPrice} • Activité 24h: ${analysis.recent24hTxs} transactions</p>
+            <div class="mt-3 sm:mt-4 text-center">
+                <p class="text-xs sm:text-sm text-gray-400">Prix ETH: $${analysis.ethPrice}</p>
             </div>
             
-            <div class="mt-4 space-y-3">
-                <div class="flex space-x-3">
-                    <button onclick="window.showTraderDetails('${analysis.address}', 'Wallet Analysé')" class="flex-1 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg font-medium transition-all">
-                        Voir Détails Complets
+            <div class="mt-3 sm:mt-4 space-y-2 sm:space-y-3">
+                <div class="flex flex-col sm:flex-row gap-2 sm:space-x-3 sm:gap-0">
+                    <button onclick="window.showTraderDetails('${analysis.address}', 'Wallet Analysé')" class="flex-1 bg-blue-600 hover:bg-blue-700 px-3 sm:px-4 py-2 rounded-lg text-sm font-medium transition-all">
+                        Voir Détails
                     </button>
-                    <button onclick="followTrader('search_${analysis.address}', 'Wallet ${analysis.address.slice(0, 6)}')" class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg font-medium transition-all">
+                    <button onclick="followTrader('search_${analysis.address}', 'Wallet ${analysis.address.slice(0, 6)}')" class="bg-green-600 hover:bg-green-700 px-3 sm:px-4 py-2 rounded-lg text-sm font-medium transition-all">
                         Suivre
                     </button>
                 </div>
                 
                 <!-- Partage Réseaux Sociaux -->
-                <div class="bg-gray-700/30 rounded-lg p-3">
+                <div class="bg-gray-700/30 rounded-lg p-2 sm:p-3">
                     <p class="text-xs font-medium mb-2 text-center text-gray-300">📢 Partager cette analyse</p>
                     <div class="flex justify-center space-x-2">
                         <button onclick="shareOnTwitter('Wallet Analysé', '${analysis.address}')" class="bg-blue-500 hover:bg-blue-600 p-1.5 rounded transition-all" title="Twitter">
@@ -482,14 +482,32 @@ window.followTrader = function(traderId, traderName) {
         }
     }
     
+    // Sauvegarder dans localStorage pour compatibilité
     localStorage.setItem('followedTraders', JSON.stringify(followedTraders));
+    
+    // Sauvegarder dans Firestore si l'utilisateur est connecté
+    if (currentUser && currentUser.uid) {
+        db.collection('users').doc(currentUser.uid).update({
+            followedTraders: followedTraders
+        }).catch(error => {
+            console.error("Erreur lors de la sauvegarde des traders suivis:", error);
+        });
+    }
+    
     updateFollowedTradersSection();
 };
+
+// Fonction pour fermer la modal d'authentification
+function closeAuthModal() {
+    const modals = document.querySelectorAll('.fixed.inset-0.bg-black\\/50.backdrop-blur-sm');
+    modals.forEach(modal => modal.remove());
+}
 
 // Modal d'authentification
 function showAuthModal() {
     const modal = document.createElement('div');
     modal.className = 'fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50';
+    modal.id = 'auth-modal'; // Ajout d'un ID pour faciliter la sélection
     modal.innerHTML = `
         <div class="bg-gray-800 rounded-xl p-8 max-w-md w-full mx-4 border border-gray-700">
             <div class="text-center mb-6">
@@ -537,7 +555,7 @@ function showAuthModal() {
                 </div>
             </div>
             
-            <button onclick="this.closest('.fixed').remove()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
         </div>
@@ -548,47 +566,161 @@ function showAuthModal() {
 }
 
 window.handleAuth = function(type) {
+    const email = document.getElementById('modal-email')?.value;
+    const password = document.getElementById('modal-password')?.value;
+    
     if (type === 'google') {
-        // Simulation connexion Google
-        currentUser = { 
-            email: 'user@gmail.com',
-            uid: 'google_' + Date.now()
-        };
-        isPremium = Math.random() > 0.2; // 80% chance premium avec Google
-        showNotification('Connecté avec Google !', 'success');
-    } else {
-        const email = document.getElementById('modal-email').value;
-        const password = document.getElementById('modal-password').value;
-        
+        // Authentification avec Google
+        const provider = new firebase.auth.GoogleAuthProvider();
+        auth.signInWithPopup(provider)
+            .then((result) => {
+                // L'utilisateur est connecté
+                const user = result.user;
+                currentUser = { 
+                    email: user.email,
+                    uid: user.uid,
+                    displayName: user.displayName,
+                    photoURL: user.photoURL
+                };
+                
+                // Vérifier si l'utilisateur est premium (à implémenter selon votre logique)
+                checkPremiumStatus(user.uid);
+                
+                showNotification('Connecté avec Google !', 'success');
+                
+                // Fermer la modal avec la nouvelle fonction
+                closeAuthModal();
+            })
+            .catch((error) => {
+                console.error("Erreur d'authentification Google:", error);
+                showNotification("Erreur de connexion: " + error.message, 'error');
+            });
+    } else if (type === 'login') {
+        // Connexion avec email/mot de passe
         if (!email || !password) {
             showNotification('Veuillez remplir tous les champs', 'error');
             return;
         }
         
-        currentUser = { 
-            email: email,
-            uid: 'user_' + Date.now()
-        };
-        isPremium = Math.random() > 0.3;
-        showNotification(type === 'login' ? 'Connecté avec succès' : 'Compte créé avec succès', 'success');
+        auth.signInWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                // L'utilisateur est connecté
+                const user = userCredential.user;
+                currentUser = { 
+                    email: user.email,
+                    uid: user.uid
+                };
+                
+                // Vérifier si l'utilisateur est premium
+                checkPremiumStatus(user.uid);
+                
+                showNotification('Connecté avec succès', 'success');
+                
+                // Fermer la modal avec la nouvelle fonction
+                closeAuthModal();
+            })
+            .catch((error) => {
+                console.error("Erreur d'authentification:", error);
+                showNotification("Erreur de connexion: " + error.message, 'error');
+            });
+    } else if (type === 'signup') {
+        // Création de compte avec email/mot de passe
+        if (!email || !password) {
+            showNotification('Veuillez remplir tous les champs', 'error');
+            return;
+        }
+        
+        auth.createUserWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                // Compte créé et utilisateur connecté
+                const user = userCredential.user;
+                currentUser = { 
+                    email: user.email,
+                    uid: user.uid
+                };
+                
+                // Par défaut, les nouveaux utilisateurs ne sont pas premium
+                isPremium = false;
+                
+                // Créer un document utilisateur dans Firestore
+                db.collection('users').doc(user.uid).set({
+                    email: user.email,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    isPremium: false,
+                    followedTraders: []
+                });
+                
+                showNotification('Compte créé avec succès', 'success');
+                
+                // Fermer la modal avec la nouvelle fonction
+                closeAuthModal();
+            })
+            .catch((error) => {
+                console.error("Erreur de création de compte:", error);
+                showNotification("Erreur d'inscription: " + error.message, 'error');
+            });
     }
-    
-    document.getElementById('auth-btn').textContent = 'Déconnexion';
-    document.getElementById('user-info').classList.remove('hidden');
-    document.getElementById('user-email').textContent = currentUser.email;
-    
-    if (isPremium) {
-        document.getElementById('premium-badge').classList.remove('hidden');
-        showNotification('Statut Premium activé !', 'success');
-    }
-    
-    updateFollowedTradersSection();
-    
-    setTimeout(() => {
-        const modal = document.querySelector('.fixed');
-        if (modal) modal.remove();
-    }, 100);
 };
+
+// Fonction pour vérifier si un utilisateur est premium
+function checkPremiumStatus(userId) {
+    db.collection('users').doc(userId).get()
+        .then((doc) => {
+            if (doc.exists) {
+                isPremium = doc.data().isPremium || false;
+                
+                // Mettre à jour l'interface utilisateur
+                if (isPremium) {
+                    document.getElementById('premium-badge').classList.remove('hidden');
+                    showNotification('Statut Premium activé !', 'success');
+                } else {
+                    document.getElementById('premium-badge').classList.add('hidden');
+                }
+                
+                // Récupérer les traders suivis
+                if (doc.data().followedTraders) {
+                    followedTraders = doc.data().followedTraders;
+                    updateFollowedTradersSection();
+                }
+            } else {
+                // Créer un document pour le nouvel utilisateur
+                db.collection('users').doc(userId).set({
+                    email: currentUser.email,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    isPremium: false,
+                    followedTraders: []
+                });
+                isPremium = false;
+            }
+            
+            // Mettre à jour l'interface utilisateur
+            document.getElementById('auth-btn').textContent = 'Déconnexion';
+            document.getElementById('user-info').classList.remove('hidden');
+            document.getElementById('user-info').style.display = 'flex';
+            document.getElementById('user-email').textContent = currentUser.email;
+        })
+        .catch((error) => {
+            console.error("Erreur lors de la vérification du statut premium:", error);
+            isPremium = false;
+        });
+}
+
+// Fonction pour gérer le menu mobile
+function toggleMobileMenu() {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.querySelector('#mobile-menu-btn i');
+    
+    if (mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.remove('hidden');
+        menuIcon.setAttribute('data-lucide', 'x');
+    } else {
+        mobileMenu.classList.add('hidden');
+        menuIcon.setAttribute('data-lucide', 'menu');
+    }
+    
+    // Rafraîchir les icônes Lucide
+    lucide.createIcons();
+}
 
 // Fonction pour faire défiler vers une section
 window.scrollToSection = function(sectionId) {
@@ -601,6 +733,34 @@ window.scrollToSection = function(sectionId) {
 // Event listeners
 document.addEventListener('DOMContentLoaded', function() {
     lucide.createIcons();
+    
+    // Écouter les changements d'état d'authentification
+    auth.onAuthStateChanged((user) => {
+        if (user) {
+            // L'utilisateur est connecté
+            currentUser = {
+                email: user.email,
+                uid: user.uid,
+                displayName: user.displayName,
+                photoURL: user.photoURL
+            };
+            
+            // Mettre à jour l'interface utilisateur
+            document.getElementById('auth-btn').textContent = 'Déconnexion';
+            document.getElementById('user-info').classList.remove('hidden');
+            document.getElementById('user-email').textContent = user.email;
+            
+            // Vérifier si l'utilisateur est premium
+            checkPremiumStatus(user.uid);
+        } else {
+            // L'utilisateur est déconnecté
+            currentUser = null;
+            isPremium = false;
+            document.getElementById('auth-btn').textContent = 'Se connecter';
+            document.getElementById('user-info').classList.add('hidden');
+            document.getElementById('premium-badge').classList.add('hidden');
+        }
+    });
     
     // Bouton analyser - Attendre que le DOM soit chargé
     setTimeout(() => {
@@ -654,15 +814,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // Bouton connexion
     document.getElementById('auth-btn').addEventListener('click', () => {
         if (currentUser) {
-            currentUser = null;
-            isPremium = false;
-            followedTraders = [];
-            localStorage.removeItem('followedTraders');
-            document.getElementById('auth-btn').textContent = 'Se connecter';
-            document.getElementById('user-info').classList.add('hidden');
-            document.getElementById('premium-badge').classList.add('hidden');
-            showNotification('Déconnecté avec succès', 'success');
-            updateFollowedTradersSection();
+            // Déconnexion avec Firebase
+            auth.signOut().then(() => {
+                currentUser = null;
+                isPremium = false;
+                followedTraders = [];
+                localStorage.removeItem('followedTraders');
+                document.getElementById('auth-btn').textContent = 'Se connecter';
+                document.getElementById('user-info').classList.add('hidden');
+                document.getElementById('premium-badge').classList.add('hidden');
+                showNotification('Déconnecté avec succès', 'success');
+                updateFollowedTradersSection();
+            }).catch((error) => {
+                console.error("Erreur lors de la déconnexion:", error);
+                showNotification("Erreur lors de la déconnexion", 'error');
+            });
         } else {
             showAuthModal();
         }
@@ -726,4 +892,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     initApp();
+    
+    // Initialisation du menu mobile
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+    }
 });
