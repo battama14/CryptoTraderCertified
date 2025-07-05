@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#10B981">
     <title>CryptoTraderCertified - Meilleurs Traders Crypto</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <!-- Firebase App (the core Firebase SDK) -->
@@ -12,6 +15,8 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
     <!-- Firebase Firestore -->
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <!-- Firebase Messaging (pour les notifications push) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-messaging-compat.js"></script>
     <style>
         @keyframes slideIn { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
@@ -60,10 +65,26 @@
                 </div>
                 <div class="flex items-center space-x-2 md:space-x-4">
                     <div id="user-info" class="hidden items-center space-x-2 md:space-x-3">
-                        <button id="notifications-btn" class="relative p-2 rounded-lg hover:bg-gray-700 transition-all">
-                            <i data-lucide="bell" class="w-5 h-5"></i>
-                            <span id="notification-count" class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
-                        </button>
+                        <div class="relative">
+                            <button id="notifications-btn" class="relative p-2 rounded-lg hover:bg-gray-700 transition-all">
+                                <i data-lucide="bell" class="w-5 h-5"></i>
+                                <span id="notification-count" class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                            </button>
+                            <div id="notifications-dropdown" class="hidden absolute right-0 mt-2 w-80 bg-gray-800 border border-gray-700 rounded-lg shadow-xl z-50">
+                                <div class="p-3 border-b border-gray-700 flex justify-between items-center">
+                                    <h3 class="text-sm font-semibold">Notifications</h3>
+                                    <button id="mark-all-read" class="text-xs text-blue-400 hover:text-blue-300">Tout marquer comme lu</button>
+                                </div>
+                                <div id="notifications-list" class="max-h-96 overflow-y-auto p-2">
+                                    <div class="text-center text-gray-400 py-4 text-sm">Aucune notification</div>
+                                </div>
+                                <div class="p-2 border-t border-gray-700">
+                                    <button id="push-notifications-toggle" class="w-full text-xs bg-blue-600 hover:bg-blue-700 py-2 px-3 rounded text-center">
+                                        Activer les notifications push
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                         <span id="user-email" class="hidden sm:inline text-sm text-gray-300"></span>
                         <div id="premium-badge" class="hidden bg-gradient-to-r from-green-400 to-blue-600 text-black px-3 py-1 rounded-full text-xs font-bold">🛡️ CTC HOLDER</div>
                     </div>
@@ -237,7 +258,30 @@
         let isPremium = false;
     </script>
     <script src="firebase-config.js"></script>
+    <script src="push-notifications.js"></script>
+    <script src="trader-monitor.js"></script>
     <script src="script.js"></script>
     <script src="trader-details.js"></script>
+    
+    <script>
+        // Vérifier si les notifications push sont activées au chargement
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', async () => {
+                try {
+                    // Vérifier si l'utilisateur est déjà abonné aux notifications
+                    const isSubscribed = await checkPushSubscription();
+                    console.log('État des notifications push:', isSubscribed ? 'Activées' : 'Désactivées');
+                    
+                    // Si l'utilisateur est connecté mais pas abonné, proposer l'abonnement
+                    if (currentUser && !isSubscribed) {
+                        console.log('Utilisateur connecté mais pas abonné aux notifications');
+                        // Vous pouvez ajouter ici une logique pour proposer l'abonnement
+                    }
+                } catch (error) {
+                    console.error('Erreur lors de la vérification des notifications:', error);
+                }
+            });
+        }
+    </script>
 </body>
 </html>

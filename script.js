@@ -682,6 +682,22 @@ function checkPremiumStatus(userId) {
                     followedTraders = doc.data().followedTraders;
                     updateFollowedTradersSection();
                 }
+                
+                // Vérifier si l'utilisateur est abonné aux notifications push
+                checkPushSubscription().then(isSubscribed => {
+                    const pushToggleBtn = document.getElementById('push-notifications-toggle');
+                    if (pushToggleBtn) {
+                        pushToggleBtn.textContent = isSubscribed ? 
+                            'Désactiver les notifications push' : 
+                            'Activer les notifications push';
+                    }
+                });
+                
+                // Charger les notifications non lues
+                loadUnreadNotifications();
+                
+                // Démarrer la surveillance des traders
+                startTraderMonitoring();
             } else {
                 // Créer un document pour le nouvel utilisateur
                 db.collection('users').doc(userId).set({
@@ -833,6 +849,72 @@ document.addEventListener('DOMContentLoaded', function() {
             showAuthModal();
         }
     });
+    
+    // Bouton notifications
+    const notificationsBtn = document.getElementById('notifications-btn');
+    const notificationsDropdown = document.getElementById('notifications-dropdown');
+    
+    if (notificationsBtn && notificationsDropdown) {
+        notificationsBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            notificationsDropdown.classList.toggle('hidden');
+            
+            // Charger les notifications si l'utilisateur est connecté
+            if (currentUser && !notificationsDropdown.classList.contains('hidden')) {
+                loadUnreadNotifications();
+            }
+        });
+        
+        // Fermer le dropdown quand on clique ailleurs
+        document.addEventListener('click', (e) => {
+            if (!notificationsBtn.contains(e.target) && !notificationsDropdown.contains(e.target)) {
+                notificationsDropdown.classList.add('hidden');
+            }
+        });
+        
+        // Bouton pour marquer toutes les notifications comme lues
+        const markAllReadBtn = document.getElementById('mark-all-read');
+        if (markAllReadBtn) {
+            markAllReadBtn.addEventListener('click', () => {
+                markAllNotificationsAsRead();
+            });
+        }
+        
+        // Bouton pour activer/désactiver les notifications push
+        const pushToggleBtn = document.getElementById('push-notifications-toggle');
+        if (pushToggleBtn) {
+            pushToggleBtn.addEventListener('click', async () => {
+                if (!currentUser) {
+                    showNotification('Vous devez être connecté pour gérer les notifications', 'error');
+                    return;
+                }
+                
+                const isSubscribed = await checkPushSubscription();
+                
+                if (isSubscribed) {
+                    // Désabonner
+                    const success = await unsubscribePushNotifications();
+                    if (success) {
+                        pushToggleBtn.textContent = 'Activer les notifications push';
+                        showNotification('Notifications push désactivées', 'info');
+                    } else {
+                        showNotification('Erreur lors de la désactivation des notifications', 'error');
+                    }
+                } else {
+                    // Abonner
+                    const success = await registerPushNotifications();
+                    if (success) {
+                        pushToggleBtn.textContent = 'Désactiver les notifications push';
+                        showNotification('Notifications push activées', 'success');
+                    } else {
+                        showNotification('Erreur lors de l\'activation des notifications', 'error');
+                    }
+                }
+            });
+        }
+        
+        // Le bouton de test des notifications a été supprimé
+    }
     
     // Charger les traders au démarrage avec cache 24h
     async function initApp() {
